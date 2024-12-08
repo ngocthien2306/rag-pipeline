@@ -66,8 +66,8 @@ pytest>=7.4.0
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/chinese-document-retrieval.git
-cd chinese-document-retrieval
+git clone https://github.com/ngocthien2306/rag-pipeline.git
+cd crag-pipeline
 ```
 
 2. Create and activate a virtual environment:
@@ -319,8 +319,8 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 ## Contact
 
 For questions and support, please create an issue in the repository or contact:
-- Email: your-email@example.com
-- GitHub: @yourusername
+- Email: ngocthien.dev23@gmail.com
+- GitHub: @ngocthien23
 
 ## Acknowledgments
 
