@@ -9,6 +9,7 @@ import logging
 import pdfplumber
 from tqdm import tqdm
 import re
+from config.config import CONFIG
 
 logger = logging.getLogger(__name__)
 
@@ -179,20 +180,20 @@ class CachedCorpusLoader:
                     if category == 'faq':
                         chunks = self._create_chunks(
                             text,
-                            chunk_size=20, 
-                            overlap=2  
+                            chunk_size=CONFIG['preprocessing'][category]['chunk_size'], 
+                            overlap=CONFIG['preprocessing'][category]['overlap']  
                         )
                     elif category == 'finance':
                         chunks = self._create_chunks(
                             text,
-                            chunk_size=30,
-                            overlap=2  
+                            chunk_size=CONFIG['preprocessing'][category]['chunk_size'],
+                            overlap=CONFIG['preprocessing'][category]['overlap']    
                         )
                     else:
                         chunks = self._create_chunks(
                             text,
-                            chunk_size=50,
-                            overlap=2 
+                            chunk_size=CONFIG['preprocessing'][category]['chunk_size'],
+                            overlap=CONFIG['preprocessing'][category]['overlap']   
                         )
                     chunked_corpus[doc_id] = chunks
                     

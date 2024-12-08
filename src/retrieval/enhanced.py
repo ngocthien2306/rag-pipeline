@@ -11,6 +11,7 @@ from rank_bm25 import BM25Okapi
 import os
 from preprocessing.text import TextPreprocessor
 from embedding.embedder import TextEmbedder
+from config.config import CONFIG
 
 logger = logging.getLogger(__name__)
 
@@ -29,7 +30,7 @@ class EnhancedRetriever:
         self.cache_dir.mkdir(parents=True, exist_ok=True)
         
         self.preprocessor = TextPreprocessor()
-        self.embedder = TextEmbedder()
+        self.embedder = TextEmbedder(CONFIG['embedding']['model_name'])
         
         # Initialize or load cached data for category
         self.initialize_retrievers(category)
@@ -175,7 +176,7 @@ class EnhancedRetriever:
             self.doc_to_chunk_map[doc_id] = chunk_indices
 
         # Preprocess chunks
-        self.processed_chunks = self.preprocessor.preprocess(flattened_chunks)
+        self.processed_chunks = self.preprocessor.preprocess(flattened_chunks, CONFIG['preprocessing'])
         
         # Initialize BM25
         self.tokenized_chunks = [text.split() for text in self.processed_chunks]
@@ -204,7 +205,7 @@ class EnhancedRetriever:
             Tuple of (best_doc_id, scores)
         """
         # Preprocess query
-        processed_query = self.preprocessor.preprocess([query])[0]
+        processed_query = self.preprocessor.preprocess([query], CONFIG['preprocessing'])[0]
         
         # Get relevant chunk indices for source files
         source_chunk_indices = []

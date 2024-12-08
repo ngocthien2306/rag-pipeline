@@ -187,11 +187,26 @@ CONFIG = {
     
     # Preprocessing settings 
     'preprocessing': {
-        'chunk_size': 5,
-        'overlap': 2,
+        'finance': {
+            'chunk_size': 20,
+            'overlap': 2
+        },
+        'faq': {
+            'chunk_size': 30,
+            'overlap': 2
+        },
+        'insurance': {
+            'chunk_size': 50,
+            'overlap': 2
+        },
         'remove_english': True,
-        'expand_synonyms': True
+        'expand_synonyms': True,
+        'remove_numbers': False,
+        'remove_punctuation': True,
+        'convert_numbers': True,
+        'normalize_chinese': True,
     }
+    
 }
 ```
 

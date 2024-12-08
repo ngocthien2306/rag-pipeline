@@ -2,6 +2,7 @@ import torch
 from typing import List
 import numpy as np
 from sentence_transformers import SentenceTransformer
+from config.config import CONFIG
 
 class TextEmbedder:
     def __init__(self, model_name="BAAI/bge-large-zh-v1.5"):
@@ -13,7 +14,7 @@ class TextEmbedder:
         """Generate embeddings for a list of texts"""
         embeddings = self.model.encode(
             texts,
-            batch_size=128,
+            batch_size=CONFIG['embedding']['batch_size'],
             show_progress_bar=True,
             convert_to_numpy=True,
             device=self.device

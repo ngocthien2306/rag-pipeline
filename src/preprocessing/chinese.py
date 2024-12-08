@@ -2,6 +2,7 @@ from functools import lru_cache
 import logging
 from hanziconv import HanziConv
 import os
+
 class ChineseConverter:
     """
     A utility class for Chinese text conversion with caching and error handling
