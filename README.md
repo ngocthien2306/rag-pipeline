@@ -67,7 +67,7 @@ pytest>=7.4.0
 1. Clone the repository:
 ```bash
 git clone https://github.com/ngocthien2306/rag-pipeline.git
-cd crag-pipeline
+cd rag-pipeline
 ```
 
 2. Create and activate a virtual environment:
@@ -79,6 +79,118 @@ source venv/bin/activate  # On Windows: venv\Scripts\activate
 3. Install dependencies:
 ```bash
 pip install -r requirements.txt
+```
+
+## Class Documentation
+
+### Main Components
+
+#### DocumentRetrievalSystem
+The main orchestrator class:
+
+```python
+from pathlib import Path
+from src.retrieval.system import DocumentRetrievalSystem
+
+# Initialize system
+system = DocumentRetrievalSystem(
+    base_path=Path("data"),
+    cache_dir=Path(".cache")
+)
+
+# Initialize retrievers
+system.initialize()
+
+# Process a question
+result = system.process_question(question)
+```
+
+#### EnhancedRetriever
+Handles document retrieval:
+
+```python
+from src.retrieval.enhanced import EnhancedRetriever
+
+retriever = EnhancedRetriever(
+    corpus_dict=corpus,
+    category="finance",
+    cache_dir=".cache"
+)
+
+# Get results
+best_doc_id, scores = retriever.get_combined_scores(
+    query="investment strategy",
+    source_files=["1", "2", "3"],
+    category="finance"
+)
+```
+
+#### TextPreprocessor
+Text preprocessing:
+
+```python
+from src.preprocessing.text import TextPreprocessor
+
+preprocessor = TextPreprocessor()
+
+# Configure preprocessing
+config = {
+    'remove_english': True,
+    'remove_numbers': False, 
+    'remove_punctuation': True,
+    'convert_numbers': True,
+    'expand_synonyms': True,
+    'normalize_chinese': True
+}
+
+# Process text
+processed = preprocessor.preprocess(
+    text="示例文本 123",
+    config=config
+)
+```
+
+#### TextEmbedder
+Generates embeddings:
+
+```python 
+from src.embedding.embedder import TextEmbedder
+
+embedder = TextEmbedder(
+    model_name="BAAI/bge-large-zh-v1.5",
+    batch_size=64,
+    device="cuda"
+)
+
+# Generate embeddings
+embeddings = embedder.get_embeddings(texts)
+```
+
+### Data Models
+
+#### Question
+```python
+from src.data.models import Question
+
+question = Question(
+    qid="1",
+    query="投资策略",
+    category="finance",
+    source=["1", "2", "3"]
+)
+```
+
+#### RetrievalResult
+```python
+from src.data.models import RetrievalResult
+
+result = RetrievalResult(
+    qid="1",
+    retrieved=2,
+    scores=[0.85, 0.92, 0.78],
+    category="finance", 
+    source_files=["1", "2", "3"]
+)
 ```
 
 ## Data Preparation
@@ -110,6 +222,8 @@ mkdir -p data/{finance,insurance,faq}
     ]
 }
 ```
+
+
 
 ## Usage
 
