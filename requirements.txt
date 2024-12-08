@@ -1,0 +1,13 @@
+pdfplumber
+tqdm
+sentence-transformers
+numpy
+pandas
+jieba
+sklearn
+rank_bm25
+torch
+transformers
+cn2an
+hanziconv
+gensim
